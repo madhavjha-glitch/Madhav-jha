@@ -181,7 +181,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 mb-6 font-sans transition-colors duration-300"
         >
-          Hi, I am <span className="bg-gradient-to-r from-accent to-accent-sec bg-clip-text text-transparent">Madhav Jha</span>
+          Hi, I am <span className="bg-gradient-to-r from-accent to-accent-sec bg-clip-text text-transparent">Madhav Krishnatreya</span>
         </motion.h1>
 
         {/* Dynamic Typing Title */}

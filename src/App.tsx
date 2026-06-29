@@ -187,7 +187,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
             <div>
-              <span className="font-extrabold text-white text-xl tracking-tight block">Madhav Jha</span>
+              <span className="font-extrabold text-white text-xl tracking-tight block">Madhav Krishnatreya</span>
               <span className="text-xs text-slate-400 font-semibold block mt-0.5">
                 Full Stack Software Developer
               </span>
@@ -247,7 +247,7 @@ export default function App() {
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <span>© 2026 Madhav Jha. All rights reserved. Code licensed under Apache-2.0.</span>
+            <span>© 2026 Madhav Krishnatreya. All rights reserved. Code licensed under Apache-2.0.</span>
             <span className="font-mono">Relational MongoDB Atlas Engine + Fail-Safe File Store Fallback</span>
           </div>
         </div>

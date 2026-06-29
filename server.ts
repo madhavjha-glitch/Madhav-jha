@@ -205,7 +205,7 @@ async function startServer() {
         token,
         admin: {
           email: ADMIN_EMAIL,
-          name: 'Madhav Jha'
+          name: 'Madhav Krishnatreya'
         }
       });
     } catch (err: any) {
@@ -482,7 +482,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Madhav Jha's Full Stack Portfolio server running on http://localhost:${PORT}`);
+    console.log(`Madhav Krishnatreya's Full Stack Portfolio server running on http://localhost:${PORT}`);
     console.log(`Default Admin Login: ${ADMIN_EMAIL} / ${ADMIN_PASSWORD_PLAIN}`);
   });
 }

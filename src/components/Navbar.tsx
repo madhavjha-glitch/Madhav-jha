@@ -68,11 +68,11 @@ export default function Navbar({ currentView, onNavigate, theme, onToggleTheme }
             className="flex items-center space-x-3 cursor-pointer group"
           >
             <div className="w-10 h-10 border border-accent bg-accent/5 flex items-center justify-center text-accent font-mono font-extrabold text-lg group-hover:scale-105 transition-transform duration-300">
-              MJ
+              MK
             </div>
             <div>
               <span className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight leading-none block mb-0.5">
-                Madhav Jha
+                Madhav Krishnatreya
               </span>
               <span className="block text-[10px] font-mono tracking-widest text-accent uppercase">
                 Full Stack Software Developer
