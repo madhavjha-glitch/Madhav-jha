@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
+import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Education from './components/Education';
 import ContactForm from './components/ContactForm';
@@ -167,6 +168,7 @@ export default function App() {
             <Hero onNavigate={handleNavigate} />
             <About />
             <Skills />
+            <Projects />
             <Experience />
             <Education />
             <ContactForm />
@@ -187,7 +189,7 @@ export default function App() {
             <div>
               <span className="font-extrabold text-white text-xl tracking-tight block">Madhav Jha</span>
               <span className="text-xs text-slate-400 font-semibold block mt-0.5">
-                BBA (Digital Marketing) Aspiring Professional
+                Full Stack Software Developer
               </span>
             </div>
 
@@ -195,6 +197,7 @@ export default function App() {
               <button onClick={() => handleNavigate('home')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">Home</button>
               <button onClick={() => handleNavigate('about')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">About</button>
               <button onClick={() => handleNavigate('skills')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">Skills</button>
+              <button onClick={() => handleNavigate('projects')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">Projects</button>
               <button onClick={() => handleNavigate('experience')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">Experience</button>
               <button onClick={() => handleNavigate('education')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">Education</button>
               <button onClick={() => handleNavigate('contact')} className="text-slate-400 hover:text-white transition-colors cursor-pointer">Contact</button>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Award, FileSpreadsheet, FileText, Cpu, CheckCircle2, Languages } from 'lucide-react';
+import { Award, Cpu, Database, Layout, Server, CheckCircle2, BarChart3, FileSpreadsheet, Megaphone, Users } from 'lucide-react';
 import ThreeDCard from './ThreeDCard';
 
 interface SkillItem {
@@ -12,56 +12,89 @@ interface SkillItem {
 }
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState<'all' | 'analytics' | 'marketing' | 'productivity'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'frontend' | 'backend' | 'databases' | 'marketing'>('all');
 
-  const skills: (SkillItem & { category: string })[] = [
+  const skills: (SkillItem & { category: 'frontend' | 'backend' | 'databases' | 'marketing' })[] = [
     {
-      name: "Advanced MS Excel",
+      name: "Frontend Architecture",
       level: 92,
-      category: "analytics",
-      desc: "Comprehensive numerical data modeling, analytics, reporting, and dashboard assembly.",
-      details: ["Complex Formulas & Lookups", "Pivot Tables & Charts", "Conditional Formatting", "Data Validation & Cleanup"],
-      icon: FileSpreadsheet
+      category: "frontend",
+      desc: "Developing visually stunning, highly interactive client-side interfaces. Expert in React, Vite, and complex UI layouts using Tailwind CSS and performance-optimized state management.",
+      details: ["React & Next.js Frameworks", "Vite & Build Optimization", "Tailwind CSS & Responsive Layouts", "Motion Layout & Micro-Animations"],
+      icon: Layout
     },
     {
-      name: "Advanced MS Word",
-      level: 88,
-      category: "productivity",
-      desc: "Professional executive documentation formatting, templates, and publication structures.",
-      details: ["Custom Layout Designs", "Document Indexing & Table of Contents", "Corporate Formatting", "Standard Operating Procedures"],
-      icon: FileText
-    },
-    {
-      name: "AI Productivity Tools",
+      name: "Backend Engineering",
       level: 90,
-      category: "productivity",
-      desc: "Leveraging generative models and workflows for content creation, research, and scheduling.",
-      details: ["Generative Prompt Engineering", "Automated Content Production", "AI Research Frameworks", "Task Automation"],
+      category: "backend",
+      desc: "Designing highly scalable RESTful and event-driven API gateways. Strong experience in building robust microservices, custom middleware, and JWT authentication routers.",
+      details: ["Node.js & Express Systems", "TypeScript Runtime Safety", "JWT Session Security", "RESTful & WebSocket Protocol Sync"],
+      icon: Server
+    },
+    {
+      name: "Database Architecture & Cache",
+      level: 88,
+      category: "databases",
+      desc: "Structuring reliable persistence schemas and distributed caching. Expert in writing aggregate queries in MongoDB Atlas and relational PostgreSQL, utilizing Redis cache locks.",
+      details: ["MongoDB Atlas & Mongoose Modeling", "PostgreSQL & Relational SQL Queries", "Redis Cache Layer Orchestration", "Database Performance Optimization"],
+      icon: Database
+    },
+    {
+      name: "DevOps & Cloud Systems",
+      level: 85,
+      category: "backend",
+      desc: "Automating application workflows and container orchestration. Skilled in deploying servers via Docker to Cloud Run, managing reverse-proxies, and standardizing CI/CD pipelines.",
+      details: ["Docker Containerization", "Nginx Reverse Proxy & Load Balancing", "Cloud Run & VPS Deployments", "Git & Collaborative Workflow Standard"],
       icon: Cpu
     },
     {
-      name: "Digital Marketing Fundamentals",
-      level: 85,
-      category: "marketing",
-      desc: "Strategic execution, target audience research, and cross-channel campaign tracking.",
-      details: ["Social Media Campaigns", "Content Strategy & Planning", "Audience Research", "Performance Analytics Tracking"],
+      name: "Generative AI Integrations",
+      level: 86,
+      category: "frontend",
+      desc: "Weaving intelligent generative models directly into web products. Adept at using the modern Gemini SDK for prompt flows, context engineering, and secure server proxy routes.",
+      details: ["Google GenAI SDK Integrations", "Prompt Flow Optimization", "Secure Server-Side AI Routing", "Dynamic Text & Media Synthesis"],
       icon: Award
     },
     {
-      name: "Bilingual Communication",
-      level: 95,
+      name: "Lead Generation & SEO",
+      level: 91,
       category: "marketing",
-      desc: "Exceptional verbal and written communication in English and Hindi for diverse marketing teams.",
-      details: ["Professional Copywriting", "Client Consultations", "English (Fluent)", "Hindi (Native/Fluent)"],
-      icon: Languages
+      desc: "Identifying and capturing high-intent marketing prospects. Proven expertise auditing on-page/off-page SEO indicators, building inbound acquisition channels, and optimizing conversion rates.",
+      details: ["Inbound Funnel Design", "Qualified Lead Capture Tactics", "Organic SEO Audits & Analytics", "Landing Page Performance Metrics"],
+      icon: Users
+    },
+    {
+      name: "Excel & Sheets Automation",
+      level: 94,
+      category: "marketing",
+      desc: "Structuring powerful automated sheets, complex formulas, lookup algorithms, and metrics visualizers to clean, process, and analyze campaign and business data.",
+      details: ["INDEX-MATCH, VLOOKUP & Array Formulas", "Pivot Tables & Advanced Data Slicers", "Google Sheets Automation & Custom Macros", "Analytical Dashboard Visualizations"],
+      icon: FileSpreadsheet
+    },
+    {
+      name: "Social Media Management",
+      level: 89,
+      category: "marketing",
+      desc: "Publishing and scaling multi-channel digital campaigns. Expert at planning editorial schedules, monitoring engagement graphs, copywriting, and maintaining visual brand guidelines.",
+      details: ["Multi-Platform Campaign Scheduling", "Growth Auditing & Insights", "Dynamic Lead Copywriting", "Audience Community Management"],
+      icon: Megaphone
+    },
+    {
+      name: "BBA Marketing Operations",
+      level: 90,
+      category: "marketing",
+      desc: "Applying foundational BBA Business Administration principles to campaign budgets, user lifetime value (LTV), customer acquisition cost (CAC), and organic brand positioning.",
+      details: ["Market Research & Competitor Analysis", "CAC & LTV Analysis", "Campaign Budget Optimization", "Modern Brand Communications Strategy"],
+      icon: BarChart3
     }
   ];
 
   const categories = [
-    { label: "All Proficiencies", value: "all" },
-    { label: "Data & Analytics", value: "analytics" },
-    { label: "Digital Marketing", value: "marketing" },
-    { label: "Business Productivity", value: "productivity" }
+    { label: "All Skills", value: "all" },
+    { label: "Digital Growth & Marketing", value: "marketing" },
+    { label: "Frontend", value: "frontend" },
+    { label: "Backend", value: "backend" },
+    { label: "Databases & Cloud", value: "databases" }
   ];
 
   const filteredSkills = activeCategory === 'all' 
@@ -116,11 +149,13 @@ export default function Skills() {
             const Icon = skill.icon;
             
             // Map category to premium neon backdrop glow colours
-            const glowColor = skill.category === 'analytics' 
+            const glowColor = skill.category === 'databases' 
               ? 'rgba(14, 165, 233, 0.15)' 
-              : skill.category === 'marketing' 
+              : skill.category === 'backend' 
                 ? 'rgba(16, 185, 129, 0.15)' 
-                : 'rgba(99, 102, 241, 0.15)';
+                : skill.category === 'marketing'
+                  ? 'rgba(245, 158, 11, 0.15)'
+                  : 'rgba(99, 102, 241, 0.15)';
 
             return (
               <motion.div

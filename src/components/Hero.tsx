@@ -9,10 +9,11 @@ interface HeroProps {
 }
 
 const TITLES = [
+  "Full Stack Software Developer",
   "BBA (Digital Marketing) Student",
-  "Aspiring Digital Marketing Professional",
-  "MS Excel & Pivot Tables Expert",
-  "AI-Powered Productivity Specialist"
+  "Lead Generation & SEO Specialist",
+  "Advanced Excel & Google Sheets Expert",
+  "Social Media Growth Manager"
 ];
 
 const SOCIAL_LINKS = [
@@ -167,7 +168,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center space-x-2 px-4 py-2 border border-accent/30 bg-accent/5 text-accent text-xs font-mono font-bold uppercase tracking-widest mb-8 transition-colors duration-300"
+          className="inline-flex items-center space-x-2 px-4 py-2 border border-accent/30 bg-accent/5 text-accent text-xs font-mono font-bold uppercase tracking-widest mb-6 transition-colors duration-300"
         >
           <Sparkles className="w-4 h-4 text-accent animate-pulse" />
           <span>Available for Internships & Full-Time Entry Roles</span>
@@ -202,7 +203,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="max-w-2xl mx-auto text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-12 font-sans transition-colors duration-300"
         >
-          A detail-oriented BBA (Digital Marketing) student with practical campaign execution and performance tracking experience. Skilled in advanced Excel formulas, pivot tables, content creation, and AI productivity tools to deliver measurable growth.
+          A performance-driven Full Stack Software Developer and pursuing BBA (Digital Marketing) student. Expert in building resilient web apps (TypeScript, React, Node.js) while excelling in lead generation, advanced Excel & Google Sheets automation, and high-impact social media management.
         </motion.p>
 
         {/* CTAs */}

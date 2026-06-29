@@ -30,3 +30,16 @@ export interface EducationItem {
   score: string;
   details?: string;
 }
+
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  techStack: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  category: 'frontend' | 'backend' | 'fullstack' | 'devops';
+  featured: boolean;
+  date: string;
+}
+

@@ -17,6 +17,7 @@ const MONGODB_URI = process.env.MONGODB_URI || '';
 
 // Initialize database storage model fallback
 let MessageModel: mongoose.Model<any> | null = null;
+let ProjectModel: mongoose.Model<any> | null = null;
 let dbConnected = false;
 
 // Attempt mongoose database initialization
@@ -31,6 +32,19 @@ if (MONGODB_URI) {
     });
     
     MessageModel = mongoose.model('Message', messageSchema);
+
+    const projectSchema = new mongoose.Schema({
+      title: { type: String, required: true },
+      description: { type: String, required: true },
+      techStack: [{ type: String }],
+      githubUrl: { type: String },
+      liveUrl: { type: String },
+      category: { type: String, enum: ['frontend', 'backend', 'fullstack', 'devops'], default: 'fullstack' },
+      featured: { type: Boolean, default: false },
+      date: { type: Date, default: Date.now }
+    });
+
+    ProjectModel = mongoose.model('Project', projectSchema);
     
     mongoose.connect(MONGODB_URI)
       .then(() => {
@@ -50,6 +64,7 @@ if (MONGODB_URI) {
 // Local File Database helper functions
 const DATA_DIR = path.join(process.cwd(), 'data');
 const MESSAGES_FILE = path.join(DATA_DIR, 'messages.json');
+const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json');
 
 function ensureLocalDataSetup() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -57,6 +72,44 @@ function ensureLocalDataSetup() {
   }
   if (!fs.existsSync(MESSAGES_FILE)) {
     fs.writeFileSync(MESSAGES_FILE, JSON.stringify([], null, 2));
+  }
+  if (!fs.existsSync(PROJECTS_FILE)) {
+    const defaultProjects = [
+      {
+        id: "proj_1",
+        title: "CloudEngine Orchestrator",
+        description: "An asynchronous distributed task orchestration engine. Handles background jobs, multi-stage retry queues, latency logging, and real-time visualization dashboards via WebSocket sync.",
+        techStack: ["TypeScript", "Node.js", "Express", "Redis", "Docker", "Tailwind CSS"],
+        githubUrl: "https://github.com/madhavjha514/cloudengine-orchestrator",
+        liveUrl: "https://example.com/cloudengine",
+        category: "backend",
+        featured: true,
+        date: new Date().toISOString()
+      },
+      {
+        id: "proj_2",
+        title: "ApexMetrics Web Dashboard",
+        description: "High-performance full-stack system analytics dashboard. Integrates real-time Prometheus, PostgreSQL, and MongoDB query telemetry with responsive client charting.",
+        techStack: ["React", "Vite", "D3.js", "MongoDB", "Express", "Tailwind CSS"],
+        githubUrl: "https://github.com/madhavjha514/apexmetrics-dashboard",
+        liveUrl: "https://example.com/apexmetrics",
+        category: "fullstack",
+        featured: true,
+        date: new Date().toISOString()
+      },
+      {
+        id: "proj_3",
+        title: "ZeroTrust Token Security Proxy",
+        description: "A secure authorization proxy gateway. Implements cryptographic token-rotation, secure session headers, client rate-limiting, and detailed IP auditing logs.",
+        techStack: ["Node.js", "TypeScript", "JSON Web Tokens", "Cryptography", "Express"],
+        githubUrl: "https://github.com/madhavjha514/zerotrust-auth-proxy",
+        liveUrl: "",
+        category: "devops",
+        featured: false,
+        date: new Date().toISOString()
+      }
+    ];
+    fs.writeFileSync(PROJECTS_FILE, JSON.stringify(defaultProjects, null, 2));
   }
 }
 
@@ -73,6 +126,21 @@ function getLocalMessages(): any[] {
 function saveLocalMessages(messages: any[]) {
   ensureLocalDataSetup();
   fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2));
+}
+
+function getLocalProjects(): any[] {
+  ensureLocalDataSetup();
+  try {
+    const rawData = fs.readFileSync(PROJECTS_FILE, 'utf8');
+    return JSON.parse(rawData);
+  } catch (err) {
+    return [];
+  }
+}
+
+function saveLocalProjects(projects: any[]) {
+  ensureLocalDataSetup();
+  fs.writeFileSync(PROJECTS_FILE, JSON.stringify(projects, null, 2));
 }
 
 // Token Verification Middleware
@@ -200,6 +268,120 @@ async function startServer() {
     } catch (err: any) {
       console.error('Error saving contact message:', err);
       return res.status(500).json({ error: 'Could not process or save your query.' });
+    }
+  });
+
+  // API: Get All Projects
+  app.get('/api/projects', async (req: any, res: any) => {
+    try {
+      if (dbConnected && ProjectModel) {
+        const projects = await ProjectModel.find().sort({ date: -1 });
+        const formatted = projects.map(p => ({
+          id: p._id,
+          title: p.title,
+          description: p.description,
+          techStack: p.techStack,
+          githubUrl: p.githubUrl,
+          liveUrl: p.liveUrl,
+          category: p.category,
+          featured: p.featured,
+          date: p.date
+        }));
+        return res.json(formatted);
+      }
+
+      // Local file fallback
+      const localProjects = getLocalProjects();
+      localProjects.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      return res.json(localProjects);
+    } catch (err) {
+      return res.status(500).json({ error: 'Failed to retrieve projects.' });
+    }
+  });
+
+  // API: Add Project (Admin Secured)
+  app.post('/api/projects', authenticateAdminToken, async (req: any, res: any) => {
+    try {
+      const { title, description, techStack, githubUrl, liveUrl, category, featured } = req.body;
+
+      if (!title || !description || !category) {
+        return res.status(400).json({ error: 'Please provide title, description, and category.' });
+      }
+
+      const parsedTechStack = Array.isArray(techStack) 
+        ? techStack 
+        : typeof techStack === 'string' 
+          ? techStack.split(',').map(s => s.trim()).filter(Boolean)
+          : [];
+
+      const sanitizedProject = {
+        title: title.trim(),
+        description: description.trim(),
+        techStack: parsedTechStack,
+        githubUrl: (githubUrl || '').trim(),
+        liveUrl: (liveUrl || '').trim(),
+        category: category || 'fullstack',
+        featured: !!featured,
+        date: new Date()
+      };
+
+      if (dbConnected && ProjectModel) {
+        const newProject = new ProjectModel(sanitizedProject);
+        const savedProject = await newProject.save();
+        return res.status(201).json({
+          success: true,
+          message: 'Project created successfully in database.',
+          data: {
+            id: savedProject._id,
+            ...sanitizedProject
+          }
+        });
+      }
+
+      // Local file fallback
+      const localProjects = getLocalProjects();
+      const newLocalProject = {
+        id: 'proj_' + Math.random().toString(36).substr(2, 9),
+        ...sanitizedProject
+      };
+      localProjects.push(newLocalProject);
+      saveLocalProjects(localProjects);
+
+      return res.status(201).json({
+        success: true,
+        message: 'Project created successfully locally (using file storage).',
+        data: newLocalProject
+      });
+    } catch (err) {
+      console.error('Error saving project:', err);
+      return res.status(500).json({ error: 'Could not create or save the project.' });
+    }
+  });
+
+  // API: Delete Project (Admin Secured)
+  app.delete('/api/projects/:id', authenticateAdminToken, async (req: any, res: any) => {
+    try {
+      const { id } = req.params;
+
+      if (dbConnected && ProjectModel) {
+        const deleted = await ProjectModel.findByIdAndDelete(id);
+        if (!deleted) {
+          return res.status(404).json({ error: 'Project not found.' });
+        }
+        return res.json({ success: true, message: 'Project deleted successfully.' });
+      }
+
+      // Local file fallback
+      const localProjects = getLocalProjects();
+      const filtered = localProjects.filter(p => p.id !== id);
+      if (localProjects.length === filtered.length) {
+        return res.status(404).json({ error: 'Project not found.' });
+      }
+      saveLocalProjects(filtered);
+
+      return res.json({ success: true, message: 'Project deleted successfully.' });
+    } catch (err) {
+      return res.status(500).json({ error: 'Failed to delete project.' });
     }
   });
 

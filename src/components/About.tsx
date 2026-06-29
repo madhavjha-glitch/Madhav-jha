@@ -57,7 +57,7 @@ export default function About() {
                 </h3>
                 
                 <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed mb-8 font-sans transition-colors duration-300">
-                  A motivated and detail-oriented BBA (Digital Marketing) student with hands-on internship experience in digital marketing, seeking an entry-level opportunity to apply skills in Excel, MS Word, and AI-driven tools, learn from industry professionals, and contribute positively to organizational growth.
+                  A motivated and versatile BBA (Digital Marketing) student alongside being a passionate Full Stack Software Developer. Adept at engineering resilient web applications (TypeScript, React, Node.js) while driving high-impact digital marketing results through lead generation, advanced Excel & Google Sheets automation, and comprehensive social media management. Seeking to merge technology and marketing strategy to deliver end-to-end digital growth.
                 </p>
 
                 {/* Quick Contact Grid */}

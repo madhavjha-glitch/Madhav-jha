@@ -10,8 +10,17 @@ export default function Education() {
       year: "2025 - 2028",
       score: "Ongoing Study",
       isCurrent: true,
-      details: "Comprehensive training in Search Engine Optimization (SEO), Paid Ads, Social Media Strategy, Advanced Excel Analytics, and Digital Content Execution.",
+      details: "Pursuing specialized commerce and marketing foundations. Mastering Lead Generation funnels, Advanced Excel & Google Sheets automation, organic SEO ranking audits, and cross-platform Social Media management.",
       icon: Trophy
+    },
+    {
+      qualification: "Full Stack Software Engineering — Specialized Track",
+      institution: "Self-Directed Advanced Engineering Study",
+      year: "2024 - Present",
+      score: "Ongoing Practice",
+      isCurrent: true,
+      details: "Comprehensive training in modern frontend architectures (React/Vite), database modeling (MongoDB/PostgreSQL), secure API design (Express/Node.js), and container orchestration (Docker/Nginx).",
+      icon: Award
     },
     {
       qualification: "Senior Secondary (Class 12)",
@@ -20,7 +29,7 @@ export default function Education() {
       score: "50%",
       isCurrent: false,
       details: "Focused on core business studies, commerce streams, communication techniques, and computer systems.",
-      icon: Award
+      icon: School
     },
     {
       qualification: "Secondary (Class 10)",

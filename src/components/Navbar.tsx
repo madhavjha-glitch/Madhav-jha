@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ShieldAlert, Award, FileUser, User, Mail, Sparkles, Briefcase, GraduationCap, Sun, Moon } from 'lucide-react';
+import { Menu, X, ShieldAlert, Award, FileUser, User, Mail, Sparkles, Briefcase, GraduationCap, Sun, Moon, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface NavbarProps {
@@ -37,6 +37,7 @@ export default function Navbar({ currentView, onNavigate, theme, onToggleTheme }
     { label: 'Home', value: 'home', icon: Sparkles },
     { label: 'About', value: 'about', icon: User },
     { label: 'Skills', value: 'skills', icon: Award },
+    { label: 'Projects', value: 'projects', icon: Code },
     { label: 'Experience', value: 'experience', icon: Briefcase },
     { label: 'Education', value: 'education', icon: GraduationCap },
     { label: 'Contact', value: 'contact', icon: Mail },
@@ -74,7 +75,7 @@ export default function Navbar({ currentView, onNavigate, theme, onToggleTheme }
                 Madhav Jha
               </span>
               <span className="block text-[10px] font-mono tracking-widest text-accent uppercase">
-                Digital Marketer + Full Stack Developer
+                Full Stack Software Developer
               </span>
             </div>
           </div>
