@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-accent: var(--color-accent-val);
+  --color-accent-sec: var(--color-accent-sec-val);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-accent-val: #0ea5e9;
+  --color-accent-sec-val: #6366f1;
+  --color-accent-glow-val: rgba(14, 165, 233, 0.15);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom geometric background styles */
+[data-canvas="grid"] .bg-grid-pattern,
+[data-canvas="grid"] .bg-dot-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, color-mix(in srgb, var(--color-accent-val) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-accent-val) 5%, transparent) 1px, transparent 1px);
+}
+
+[data-canvas="dots"] .bg-dot-pattern,
+[data-canvas="dots"] .bg-grid-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(color-mix(in srgb, var(--color-accent-val) 8%, transparent) 1px, transparent 1px);
+}
+
+[data-canvas="plain"] .bg-grid-pattern,
+[data-canvas="plain"] .bg-dot-pattern {
+  background-image: none !important;
+}
+
+/* Dynamic glow animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 15s infinite ease-in-out;
+}
+
+/* Custom modern scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg, #020617);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg, #1e293b);
+  border: 2px solid var(--scrollbar-track-bg, #020617);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-val);
+}
+
+
